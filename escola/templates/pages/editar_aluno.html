@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1" />
+        <title>Cadastro</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous" />
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/components/icon.min.css" />
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+        <style>
+            nav.menu {
+                width: 100%;
+                height: auto;
+                box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+            }
+
+            .menu ul {
+                padding: 0;
+            }
+
+            .menu ul > li {
+                list-style: none;
+                padding: 0 5px;
+            }
+            .menu ul > li > a {
+                font-family: "Arial";
+                color: #222;
+                font-size: 18px;
+                text-decoration: none;
+            }
+            h1 {
+                font-family: "Arial";
+                color: #222;
+                font-size: 25px;
+            }
+
+            h5 {
+                font-family: "Arial";
+                color: #222;
+                font-size: 20px;
+            }
+
+            .center {
+                text-align: center;
+            }
+
+            .form__field {
+                font-family: "Arial";
+                width: 100%;
+                border: 0;
+                border-radius: 8px;
+                outline: 0;
+                font-size: 15px;
+                color: #707070;
+                padding: 15px 12px;
+                background: transparent;
+                transition: border-color 0.2s;
+                border: 0.5px solid #e5e5e5;
+            }
+            .form__field:focus {
+                border: 1px solid #385bc194;
+                box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+            }
+
+            .button {
+                font-family: "Arial";
+                border: none;
+                border-radius: 8px;
+                text-align: center;
+                background-color: #0d4a95;
+                color: white;
+                width: auto;
+                padding: 8px 20px;
+                text-decoration: none;
+                font-size: 16px;
+                cursor: pointer;
+                -webkit-transition: all 0.4s ease 0s;
+                transition: all 0.4s ease 0s;
+            }
+            .submit{
+                width: 100%;
+            }
+            .submit:hover {
+                border: 1px solid #0d4a95;
+                background-color: #fff;
+                color: #222;
+            }
+
+            @media only screen and (max-width: 500px) {
+                h1 {
+                    font-size: 20px;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="overlay"></div>
+        <div class="container-fluid px-0">
+            <nav class="menu">
+                <ul class="d-flex justify-content-start py-4 px-5">
+                    <li><img style="width: 24px;" src="https://cdn1.iconfinder.com/data/icons/user-interface-colorful/48/cloud-512.png" /></li>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Inscrição</a></li>
+                    <li><a href="#">Saiba mais</a></li>
+                    <li><a href="#">Fale Conosco</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="container mt-4">
+            <h1 class="center">Editar Informações do Aluno</h1>
+
+            {% if user.is_authenticated %}
+            <div class="row justify-content-center mb-5">
+            <form class="col-5 px-5 mt-3" method="post" action='{% url "update" form.id %}'>
+                {% csrf_token %}
+                <div class="">
+                    <label class="form__label px-2">Nome</label>
+                    <input value="{{form.nome}}" type="input" class="form__field mt-2" placeholder="Nome" name="nome" id="nome" required="" />
+                </div>
+
+                <div class="">
+                    <label class="form__label mt-3 px-2">Email</label>
+                    <input value="{{form.email}}" type="email" class="form__field mt-2" placeholder="Email" name="email" id="email" required="" />
+                </div>
+
+                <div class="">
+                    <label class="form__label mt-3 px-2">Telefone</label>
+                    <input value="{{form.telefone}}" type="input" class="form__field mt-2" placeholder="Telefone" name="telefone" id="telefone" required="" />
+                </div>
+
+                <div class="">
+                    <label class="form__label mt-3 px-2">Endereço completo</label>
+                    <input value="{{form.endereco_completo}}" type="input" class="form__field mt-2" placeholder="Endereço Completo" name="endereco_completo" id="endereco_completo" />
+                </div>
+
+                <div class="col-12 d-flex justify-content-center px-2">
+                    <button class="button submit mt-4" type="submit">
+                        Salvar Alteração
+                    </button>
+                </div>
+            </form>
+        </div>
+            {% endif %}
+
+        </div>
+    </body>
+</html>

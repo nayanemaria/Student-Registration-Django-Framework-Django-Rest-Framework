@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1" />
+        <title>Cadastro</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous" />
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.1/components/icon.min.css" />
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+        <style>
+            nav.menu {
+                width: 100%;
+                height: auto;
+                box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+            }
+
+            .menu ul {
+                padding: 0;
+            }
+
+            .menu ul > li {
+                list-style: none;
+                padding: 0 5px;
+            }
+            .menu ul > li > a {
+                font-family: "Arial";
+                color: #222;
+                font-size: 18px;
+                text-decoration: none;
+            }
+            h1 {
+                font-family: "Arial";
+                color: #222;
+                font-size: 25px;
+            }
+
+            h5 {
+                font-family: "Arial";
+                color: #222;
+                font-size: 20px;
+            }
+
+            .center {
+                text-align: center;
+            }
+
+            .form__field {
+                font-family: "Arial";
+                width: 100%;
+                border: 0;
+                border-radius: 8px;
+                outline: 0;
+                font-size: 15px;
+                color: #707070;
+                padding: 15px 12px;
+                background: transparent;
+                transition: border-color 0.2s;
+                border: 0.5px solid #e5e5e5;
+            }
+            .form__field:focus {
+                border: 1px solid #385bc194;
+                box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+            }
+
+            .button {
+                font-family: "Arial";
+                border: none;
+                border-radius: 8px;
+                text-align: center;
+                background-color: #0d4a95;
+                color: white;
+                width: auto;
+                padding: 8px 20px;
+                text-decoration: none;
+                font-size: 16px;
+                cursor: pointer;
+                -webkit-transition: all 0.4s ease 0s;
+                transition: all 0.4s ease 0s;
+            }
+            .submit:hover {
+                border: 1px solid #0d4a95;
+                background-color: #fff;
+                color: #222;
+            }
+            .dataTable {
+                display: block;
+                width: 100%;
+                margin: 1em 0;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+                overflow: hidden;
+            }
+
+            .dataTable thead,
+            .dataTable tbody,
+            .dataTable thead tr,
+            .dataTable th {
+                display: block;
+            }
+
+            .dataTable thead {
+                float: left;
+            }
+
+            .dataTable tbody {
+                width: auto;
+                position: relative;
+                overflow-x: auto;
+            }
+
+            .dataTable td,
+            .dataTable th {
+                padding: 0.625em;
+                line-height: 1.5em;
+                border-bottom: 1px dashed #ccc;
+                box-sizing: border-box;
+                overflow-x: hidden;
+                overflow-y: auto;
+            }
+
+            .dataTable th {
+                text-align: left;
+                background: #0d4a95;
+                color: #fff;
+                border-bottom: 1px dashed #aaa;
+            }
+
+            .dataTable tbody tr {
+                display: table-cell;
+            }
+
+            .dataTable tbody td {
+                display: block;
+            }
+
+            .dataTable tr:nth-child(odd) {
+                background: rgba(0, 0, 0, 0.07);
+            }
+
+            .dataTable .button {
+                background-color: transparent;
+                color: #222;
+            }
+
+            @media screen and (min-width: 50em) {
+                .dataTable {
+                    display: table;
+                }
+
+                .dataTable thead {
+                    display: table-header-group;
+                    float: none;
+                }
+
+                .dataTable tbody {
+                    display: table-row-group;
+                }
+
+                .dataTable thead tr,
+                .dataTable tbody tr {
+                    display: table-row;
+                }
+
+                .dataTable th,
+                .dataTable tbody td {
+                    display: table-cell;
+                }
+
+                .dataTable td,
+                .dataTable th {
+                    width: auto;
+                }
+            }
+
+            @media only screen and (max-width: 500px) {
+                h1 {
+                    font-size: 20px;
+                }
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="overlay"></div>
+        <div class="container-fluid px-0">
+            <nav class="menu">
+                <ul class="d-flex justify-content-start py-4 px-5">
+                    <li><img style="width: 24px;" src="https://cdn1.iconfinder.com/data/icons/user-interface-colorful/48/cloud-512.png" /></li>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Inscrição</a></li>
+                    <li><a href="#">Saiba mais</a></li>
+                    <li><a href="#">Fale Conosco</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="container mt-4">
+            <h1 class="center">Cadastro e Informações Gerais</h1>
+
+            {% if user.is_authenticated %}
+            <form class="d-flex flex-wrap px-5 mt-3" action='{% url "cadastrar_aluno" %}' method="post">
+                {% csrf_token %}
+                <div class="col-12 mb-2">
+                    <h5>Preenchimento de Ficha</h5>
+                </div>
+                <div class="col-lg-6 col-12 px-2">
+                    <label class="form__label px-2">Nome</label>
+                    <input type="input" class="form__field mt-2" placeholder="Nome" name="nome" id="nome" required="" />
+                </div>
+
+                <div class="col-lg-6 col-12 px-2">
+                    <label class="form__label mt-lg-0 mt-3 px-2">Email</label>
+                    <input type="email" class="form__field mt-2" placeholder="Email" name="email" id="email" required="" />
+                </div>
+
+                <div class="col-lg-6 col-12 px-2">
+                    <label class="form__label mt-3 px-2">Telefone</label>
+                    <input type="input" class="form__field mt-2" placeholder="Telefone" name="telefone" id="telefone" required="" />
+                </div>
+
+                <div class="col-lg-6 col-12 px-2">
+                    <label class="form__label mt-3 px-2">Endereço completo</label>
+                    <input type="input" class="form__field mt-2" placeholder="Endereço Completo" name="endereco_completo" id="endereco_completo" />
+                </div>
+
+                <div class="col-12 d-flex justify-content-end px-2">
+                    <button class="button submit mt-4" type="submit">
+                        Enviar Informações
+                    </button>
+                </div>
+            </form>
+            {% endif %}
+
+            <div class="col-12 mt-4 mb-5 px-5">
+                <h5>Retorno de Informações</h5>
+                <table class="dataTable mt-4">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Email</th>
+                            <th>Telefone</th>
+                            <th>Endereço Completo</th>
+                            <th>Opções</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in data %}
+                        <tr>
+                            <td>{{i.nome}}</td>
+                            <td>{{i.email}}</td>
+                            <td>{{i.telefone}}</td>
+                            <td>{{i.endereco_completo}}</td>
+                            <td class="d-flex">
+                                <a class="button action" href="update/{{ i.id }}"><i class="edit icon"></i>Editar</a>
+                                <a class="button action" href="delete/{{ i.id }}"><i class="trash alternate outline icon"></i>Excluir</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
