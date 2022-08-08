@@ -1,0 +1,169 @@
+nav.menu {
+    width: 100%;
+    height: auto;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.menu ul {
+    padding: 0;
+}
+
+.menu ul > li {
+    list-style: none;
+    padding: 0 5px;
+}
+.menu ul > li > a {
+    font-family: "Arial";
+    color: #222;
+    font-size: 18px;
+    text-decoration: none;
+}
+h1 {
+    font-family: "Arial";
+    color: #222;
+    font-size: 25px;
+}
+
+h5 {
+    font-family: "Arial";
+    color: #222;
+    font-size: 20px;
+}
+
+.center {
+    text-align: center;
+}
+
+.form__field {
+    font-family: "Arial";
+    width: 100%;
+    border: 0;
+    border-radius: 8px;
+    outline: 0;
+    font-size: 15px;
+    color: #707070;
+    padding: 15px 12px;
+    background: transparent;
+    transition: border-color 0.2s;
+    border: 0.5px solid #e5e5e5;
+}
+.form__field:focus {
+    border: 1px solid #385bc194;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.button {
+    font-family: "Arial";
+    border: none;
+    border-radius: 8px;
+    text-align: center;
+    background-color: #0d4a95;
+    color: white;
+    width: auto;
+    padding: 8px 20px;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    -webkit-transition: all 0.4s ease 0s;
+    transition: all 0.4s ease 0s;
+}
+.submit:hover {
+    border: 1px solid #0d4a95;
+    background-color: #fff;
+    color: #222;
+}
+.dataTable {
+    display: block;
+    width: 100%;
+    margin: 1em 0;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    overflow: hidden;
+}
+
+.dataTable thead,
+.dataTable tbody,
+.dataTable thead tr,
+.dataTable th {
+    display: block;
+}
+
+.dataTable thead {
+    float: left;
+}
+
+.dataTable tbody {
+    width: auto;
+    position: relative;
+    overflow-x: auto;
+}
+
+.dataTable td,
+.dataTable th {
+    padding: 0.625em;
+    line-height: 1.5em;
+    border-bottom: 1px dashed #ccc;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.dataTable th {
+    text-align: left;
+    background: #0d4a95;
+    color: #fff;
+    border-bottom: 1px dashed #aaa;
+}
+
+.dataTable tbody tr {
+    display: table-cell;
+}
+
+.dataTable tbody td {
+    display: block;
+}
+
+.dataTable tr:nth-child(odd) {
+    background: rgba(0, 0, 0, 0.07);
+}
+
+.dataTable .button {
+    background-color: transparent;
+    color: #222;
+}
+
+@media screen and (min-width: 50em) {
+    .dataTable {
+        display: table;
+    }
+
+    .dataTable thead {
+        display: table-header-group;
+        float: none;
+    }
+
+    .dataTable tbody {
+        display: table-row-group;
+    }
+
+    .dataTable thead tr,
+    .dataTable tbody tr {
+        display: table-row;
+    }
+
+    .dataTable th,
+    .dataTable tbody td {
+        display: table-cell;
+    }
+
+    .dataTable td,
+    .dataTable th {
+        width: auto;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    h1 {
+        font-size: 20px;
+    }
+}

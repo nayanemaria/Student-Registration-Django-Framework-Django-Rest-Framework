@@ -1,8 +1,12 @@
+from ast import If
 import json
+from multiprocessing import context
 from unittest import loader
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
+
+from escola.forms import AlunoForm
 from .models import Aluno
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
@@ -67,10 +71,29 @@ def update_aluno(request, id):
         aluno.save()
         return HttpResponseRedirect(reverse('cadastrar_aluno'))
     if request.method == 'GET':
+        print('entrei aqui')
         form = Aluno.objects.filter(id=id).first()
         context = {
             'form': form,
             'user': request.user
         }
         return render(request, "pages\editar_aluno.html", context)
+
+def form_modelform(request):
+    if request.method == 'GET':
+        form = AlunoForm()
+        context = {
+            'form': form,
+        }
+        return render(request, "pages\home_form.html", context=context)
+    else:
+        form = AlunoForm(request.POST)
+        if form.is_valid():
+            aluno = form.save()
+            form = AlunoForm()
+        context = {
+            'form': form,
+        }
+        return render(request, "pages/home_form.html", context=context)
+
 
