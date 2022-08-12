@@ -152,7 +152,7 @@ h1 {
     margin: 0 0 20px;
     font-weight: 300;
     font-size: 20px;
-    color: var(--body-quiet-color);
+    color: #222;
 }
 
 h2 {
@@ -901,8 +901,9 @@ table#change-history tbody th {
     align-items: center;
     padding: 10px 40px;
     background: #fff;
-    color: var(--header-color);
+    color: #222;
     overflow: hidden;
+    box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
 }
 
 #header a:link, #header a:visited {
@@ -923,10 +924,12 @@ table#change-history tbody th {
     font-weight: 300;
     font-size: 24px;
     color: var(--accent);
+    font-family: "Roboto", "Helvetica Neue"!important;
 }
 
 #branding h1, #branding h1 a:link, #branding h1 a:visited {
-    color: var(--accent);
+    color: #222;
+    font-weight: 500;
 }
 
 #branding h2 {
