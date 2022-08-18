@@ -43,9 +43,11 @@ def form(request):
                     'escola': Escola.objects.get(nome=escola)
                 }
                 Aluno(**dict).save()
+                escolas = Escola.objects.all()
                 alunos = Aluno.objects.all().order_by('-id')
                 print(alunos)
                 context = {
+                    'escolas': escolas,
                     'data': alunos,
                     'user': request.user
                 }
@@ -83,6 +85,7 @@ def update_aluno(request, id):
         aluno.email = request.POST['email']
         aluno.telefone = request.POST['telefone']
         aluno.endereco_completo = request.POST['endereco_completo']
+        aluno.escola = Escola.objects.get(pk=request.POST['escola'])
         aluno.save()
         return HttpResponseRedirect(reverse('cadastrar_aluno'))
     if request.method == 'GET':
