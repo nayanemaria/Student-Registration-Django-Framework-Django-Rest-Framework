@@ -1,4 +1,3 @@
-from msilib.schema import Patch
 from django.urls import path
 
 from . import views

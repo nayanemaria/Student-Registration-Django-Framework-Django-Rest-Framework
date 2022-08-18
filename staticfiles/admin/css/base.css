@@ -900,7 +900,7 @@ table#change-history tbody th {
     justify-content: space-between;
     align-items: center;
     padding: 10px 40px;
-    background: #fff;
+    background: var(--primary);
     color: #222;
     overflow: hidden;
     box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;

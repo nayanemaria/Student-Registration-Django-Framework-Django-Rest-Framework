@@ -115,26 +115,36 @@
 
             {% if user.is_authenticated %}
             <div class="row justify-content-center mb-5">
-            <form class="col-5 px-5 mt-3" method="post" action='{% url "update" form.id %}'>
+            <form class="col-5 px-5 mt-3" method="post" action='{% url "update" aluno.id %}'>
                 {% csrf_token %}
                 <div class="">
                     <label class="form__label px-2">Nome</label>
-                    <input value="{{form.nome}}" type="input" class="form__field mt-2" placeholder="Nome" name="nome" id="nome" required="" />
+                    <input value="{{aluno.nome}}" type="input" class="form__field mt-2" placeholder="Nome" name="nome" id="nome" required="" />
                 </div>
 
                 <div class="">
                     <label class="form__label mt-3 px-2">Email</label>
-                    <input value="{{form.email}}" type="email" class="form__field mt-2" placeholder="Email" name="email" id="email" required="" />
+                    <input value="{{aluno.email}}" type="email" class="form__field mt-2" placeholder="Email" name="email" id="email" required="" />
                 </div>
 
                 <div class="">
                     <label class="form__label mt-3 px-2">Telefone</label>
-                    <input value="{{form.telefone}}" type="input" class="form__field mt-2" placeholder="Telefone" name="telefone" id="telefone" required="" />
+                    <input value="{{aluno.telefone}}" type="input" class="form__field mt-2" placeholder="Telefone" name="telefone" id="telefone" required="" />
                 </div>
 
                 <div class="">
                     <label class="form__label mt-3 px-2">Endereço completo</label>
-                    <input value="{{form.endereco_completo}}" type="input" class="form__field mt-2" placeholder="Endereço Completo" name="endereco_completo" id="endereco_completo" />
+                    <input value="{{aluno.endereco_completo}}" type="input" class="form__field mt-2" placeholder="Endereço Completo" name="endereco_completo" id="endereco_completo" />
+                </div>
+
+                <div class="">
+                    <label class="form__label mt-3 px-2">Qual a sua escola?</label>
+                    <select class="form__field mt-2" name="escola">
+                        <option>Selecione a Escola</option>
+                        {% for i in escolas %}
+                            <option {% if aluno.escola.id == i.id %} selected{% endif %} value= "{{ i.id }}"> {{ i.nome }} </option>
+                        {% endfor %}            
+                    </select>
                 </div>
 
                 <div class="col-12 d-flex justify-content-center px-2">

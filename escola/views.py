@@ -1,15 +1,14 @@
-from ast import If
 import json
-from multiprocessing import context
-from unittest import loader
 from django.core.serializers.json import DjangoJSONEncoder
 from django.http import HttpResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import render
 
 from escola.forms import AlunoForm
-from .models import Aluno
+from .models import Aluno, Escola
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
+
+from .serializers import AlunoSerializer
 
 
 def index(request):
@@ -23,33 +22,49 @@ def index(request):
     # teste.save()
     todos_alunos = Aluno.objects.all().first()
     print("todos_alunos", todos_alunos)
-    return render(request, "pages\home.html")
+    return render(request, "pages/home.html")
 
 def form(request):
     try:
         print("request save")
         if request.user.is_authenticated:
             if request.method == 'POST':
+                print('entrei no post')
                 nome = request.POST['nome']
                 email = request.POST['email']
                 telefone = request.POST['telefone']
                 endereco_completo = request.POST['endereco_completo']
-                form = Aluno(nome=nome, email=email, telefone=telefone, endereco_completo=endereco_completo)
-                form.save()
-                data = Aluno.objects.all()
+                escola = request.POST['escola']
+                dict = {
+                    'nome': nome,
+                    'email': email, 
+                    'telefone': telefone, 
+                    'endereco_completo': endereco_completo, 
+                    'escola': Escola.objects.get(nome=escola)
+                }
+                Aluno(**dict).save()
+                alunos = Aluno.objects.all().order_by('-id')
+                print(alunos)
                 context = {
-                    'data': data,
+                    'data': alunos,
                     'user': request.user
                 }
-                return render(request, "pages\home.html", context)
+                return render(request, "pages/home.html", context)
 
             if request.method == 'GET':
-                data = Aluno.objects.all()
+                alunos = Aluno.objects.all().order_by('-id') # Pega todos Alunos do banco
+                # alunos_list = AlunoSerializer(alunos, many=True).data # serializa eles de forma listada
+                # json_alunos_list = json.dumps(alunos_list) # faz a transformação dos dados para JSON
+                
+                escolas = Escola.objects.all()
+                print(escolas)
                 context = {
-                    'data': data,
+                    'escolas': escolas,
+                    'data': alunos,
                     'user': request.user
                 }
-                return render(request, "pages\home.html", context)
+
+                return render(request, "pages/home.html", context)
 
     except Exception as ERROR:
         retorno = json.dumps({"error":ERROR},cls=DjangoJSONEncoder,ensure_ascii=False)
@@ -72,12 +87,14 @@ def update_aluno(request, id):
         return HttpResponseRedirect(reverse('cadastrar_aluno'))
     if request.method == 'GET':
         print('entrei aqui')
-        form = Aluno.objects.filter(id=id).first()
+        aluno = Aluno.objects.filter(id=id).first()
+        escolas = Escola.objects.all()
         context = {
-            'form': form,
+            'aluno': aluno,
+            'escolas': escolas,
             'user': request.user
         }
-        return render(request, "pages\editar_aluno.html", context)
+        return render(request, "pages/editar_aluno.html", context)
 
 def form_modelform(request):
     if request.method == 'GET':
@@ -85,7 +102,7 @@ def form_modelform(request):
         context = {
             'form': form,
         }
-        return render(request, "pages\home_form.html", context=context)
+        return render(request, "pages/home_form.html", context=context)
     else:
         form = AlunoForm(request.POST)
         if form.is_valid():
